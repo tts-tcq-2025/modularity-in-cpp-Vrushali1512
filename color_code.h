@@ -1,5 +1,5 @@
-#ifndef COLOR_CODER_H
-#define COLOR_CODER_H
+#ifndef COLOR_CODE_H
+#define COLOR_CODE_H
 
 typedef enum {
     WHITE, RED, BLACK, YELLOW, VIOLET, NUMBER_OF_MAJOR_COLORS
@@ -21,4 +21,4 @@ ColorPair GetColorFromPairNumber(int pairNumber);
 int GetPairNumberFromColor(MajorColor major, MinorColor minor);
 void ToString(ColorPair colorPair, char* buffer, int bufferLen);
 
-#endif // COLOR_CODER_H
+#endif // COLOR_CODE_H
