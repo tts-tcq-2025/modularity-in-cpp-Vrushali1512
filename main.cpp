@@ -1,4 +1,4 @@
-#include "color_coder.h"
+#include "./color_coder.h"
 #include <stdio.h>
 #include <assert.h>
 
