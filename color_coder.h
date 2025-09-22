@@ -1,26 +1,24 @@
-#ifndef TELCO_COLOR_CODER_H
-#define TELCO_COLOR_CODER_H
+#ifndef COLOR_CODE_H
+#define COLOR_CODE_H
 
-// Enums for major and minor colors
-typedef enum {WHITE, RED, BLACK, YELLOW, VIOLET} MajorColor;
-typedef enum {BLUE, ORANGE, GREEN, BROWN, SLATE} MinorColor;
+typedef enum {
+    WHITE, RED, BLACK, YELLOW, VIOLET, NUMBER_OF_MAJOR_COLORS
+} MajorColor;
 
-// A struct to represent a color pair
+typedef enum {
+    BLUE, ORANGE, GREEN, BROWN, SLATE, NUMBER_OF_MINOR_COLORS
+} MinorColor;
+
 typedef struct {
-    MajorColor majorColor;
-    MinorColor minorColor;
-} TelCoColorCoder_ColorPair;
+    MajorColor major;
+    MinorColor minor;
+} ColorPair;
 
-// Arrays to hold the string names of the colors
-extern const char* TelCoColorCoder_MajorColorNames[];
-extern const char* TelCoColorCoder_MinorColorNames[];
+const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS];
+const char* MinorColorNames[NUMBER_OF_MINOR_COLORS];
 
-// Constants for the number of colors
-extern const int TelCoColorCoder_numberOfMajorColors;
-extern const int TelCoColorCoder_numberOfMinorColors;
+ColorPair GetColorFromPairNumber(int pairNumber);
+int GetPairNumberFromColor(MajorColor major, MinorColor minor);
+void ToString(ColorPair colorPair, char* buffer, int bufferLen);
 
-// Function prototypes
-TelCoColorCoder_ColorPair TelCoColorCoder_GetColorFromPairNumber(int pairNumber);
-int TelCoColorCoder_GetPairNumberFromColor(MajorColor major, MinorColor minor);
-
-#endif // TELCO_COLOR_CODER_H
+#endif // COLOR_CODE_H
