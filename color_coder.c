@@ -1,24 +1,27 @@
-#ifndef COLOR_CODE_H
-#define COLOR_CODE_H
+#include "color_code.h"
+#include <stdio.h>
 
-typedef enum {
-    WHITE, RED, BLACK, YELLOW, VIOLET, NUMBER_OF_MAJOR_COLORS
-} MajorColor;
+const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS] = {
+    "White", "Red", "Black", "Yellow", "Violet"
+};
 
-typedef enum {
-    BLUE, ORANGE, GREEN, BROWN, SLATE, NUMBER_OF_MINOR_COLORS
-} MinorColor;
+const char* MinorColorNames[NUMBER_OF_MINOR_COLORS] = {
+    "Blue", "Orange", "Green", "Brown", "Slate"
+};
 
-typedef struct {
-    MajorColor major;
-    MinorColor minor;
-} ColorPair;
+ColorPair GetColorFromPairNumber(int pairNumber) {
+    int zeroBasedPairNumber = pairNumber - 1;
+    ColorPair colorPair;
+    colorPair.major = (MajorColor)(zeroBasedPairNumber / NUMBER_OF_MINOR_COLORS);
+    colorPair.minor = (MinorColor)(zeroBasedPairNumber % NUMBER_OF_MINOR_COLORS);
+    return colorPair;
+}
 
-const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS];
-const char* MinorColorNames[NUMBER_OF_MINOR_COLORS];
+int GetPairNumberFromColor(MajorColor major, MinorColor minor) {
+    return major * NUMBER_OF_MINOR_COLORS + minor + 1;
+}
 
-ColorPair GetColorFromPairNumber(int pairNumber);
-int GetPairNumberFromColor(MajorColor major, MinorColor minor);
-void ToString(ColorPair colorPair, char* buffer, int bufferLen);
-
-#endif // COLOR_CODE_H
+void ToString(ColorPair colorPair, char* buffer, int bufferLen) {
+    // Safely create a string with "Major Minor"
+    snprintf(buffer, bufferLen, "%s %s", MajorColorNames[colorPair.major], MinorColorNames[colorPair.minor]);
+}
