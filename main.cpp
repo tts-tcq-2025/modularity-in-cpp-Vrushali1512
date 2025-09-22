@@ -1,7 +1,6 @@
-#include "color_code.h"
 #include <stdio.h>
 #include <assert.h>
-
+#include "color_code.h"
 
 void testNumberToPair(int pairNumber, MajorColor expectedMajor, MinorColor expectedMinor) {
     ColorPair colorPair = GetColorFromPairNumber(pairNumber);
