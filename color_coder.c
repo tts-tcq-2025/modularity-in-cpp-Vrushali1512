@@ -1,4 +1,4 @@
-#include "color_code.h"
+#include "color_coder.h"
 #include <stdio.h>
 
 const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS] = {
