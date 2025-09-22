@@ -1,32 +1,24 @@
-#include "color_coder.h"
-#include <stddef.h>
+#ifndef COLOR_CODE_H
+#define COLOR_CODE_H
 
-// Arrays to hold the string names of the colors
-const char* TelCoColorCoder_MajorColorNames[] = {
-    "White", "Red", "Black", "Yellow", "Violet"
-};
-const char* TelCoColorCoder_MinorColorNames[] = {
-    "Blue", "Orange", "Green", "Brown", "Slate"
-};
+typedef enum {
+    WHITE, RED, BLACK, YELLOW, VIOLET, NUMBER_OF_MAJOR_COLORS
+} MajorColor;
 
-// Calculate the number of colors automatically
-const int TelCoColorCoder_numberOfMajorColors =
-    sizeof(TelCoColorCoder_MajorColorNames) / sizeof(TelCoColorCoder_MajorColorNames[0]);
-const int TelCoColorCoder_numberOfMinorColors =
-    sizeof(TelCoColorCoder_MinorColorNames) / sizeof(TelCoColorCoder_MinorColorNames[0]);
+typedef enum {
+    BLUE, ORANGE, GREEN, BROWN, SLATE, NUMBER_OF_MINOR_COLORS
+} MinorColor;
 
-// Function to get a color pair from a pair number
-TelCoColorCoder_ColorPair TelCoColorCoder_GetColorFromPairNumber(int pairNumber) {
-    int zeroBasedPairNumber = pairNumber - 1;
-    MajorColor majorColor = (MajorColor)(zeroBasedPairNumber / TelCoColorCoder_numberOfMinorColors);
-    MinorColor minorColor = (MinorColor)(zeroBasedPairNumber % TelCoColorCoder_numberOfMinorColors);
-    
-    // Create and return the struct
-    TelCoColorCoder_ColorPair pair = {majorColor, minorColor};
-    return pair;
-}
+typedef struct {
+    MajorColor major;
+    MinorColor minor;
+} ColorPair;
 
-// Function to get the pair number from a color pair
-int TelCoColorCoder_GetPairNumberFromColor(MajorColor major, MinorColor minor) {
-    return major * TelCoColorCoder_numberOfMinorColors + minor + 1;
-}
+const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS];
+const char* MinorColorNames[NUMBER_OF_MINOR_COLORS];
+
+ColorPair GetColorFromPairNumber(int pairNumber);
+int GetPairNumberFromColor(MajorColor major, MinorColor minor);
+void ToString(ColorPair colorPair, char* buffer, int bufferLen);
+
+#endif // COLOR_CODE_H
