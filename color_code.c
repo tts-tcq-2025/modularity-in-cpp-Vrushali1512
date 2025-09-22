@@ -1,5 +1,5 @@
-#include "color_code.h"
 #include <stdio.h>
+#include "color_code.h"
 
 const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS] = {
     "White", "Red", "Black", "Yellow", "Violet"
