@@ -1,27 +1,59 @@
-#include <stdio.h>
-#include <assert.h>
 #include "color_code.h"
+#include <iostream>
+#include <cassert>
 
-void testNumberToPair(int pairNumber, MajorColor expectedMajor, MinorColor expectedMinor) {
-    ColorPair colorPair = GetColorFromPairNumber(pairNumber);
-    char colorPairStr[20];
-    ToString(colorPair, colorPairStr, sizeof(colorPairStr));
-    printf("Got pair %s\n", colorPairStr);
-    assert(colorPair.major == expectedMajor);
-    assert(colorPair.minor == expectedMinor);
+using namespace ColorCode;
+
+void testGetColorFromPairNumber() {
+    ColorPair pair = GetColorFromPairNumber(4);
+    assert(pair.majorColor == "White");
+    assert(pair.minorColor == "Brown");
+
+    pair = GetColorFromPairNumber(23);
+    assert(pair.majorColor == "Violet");
+    assert(pair.minorColor == "Green");
+
+    try {
+        GetColorFromPairNumber(0);
+        assert(false);  // Should not reach here
+    } catch (const std::out_of_range&) {
+        // Expected
+    }
 }
 
-void testPairToNumber(MajorColor major, MinorColor minor, int expectedPairNumber) {
-    int pairNumber = GetPairNumberFromColor(major, minor);
-    printf("Got pair number %d\n", pairNumber);
-    assert(pairNumber == expectedPairNumber);
+void testGetPairNumberFromColor() {
+    int pairNumber = GetPairNumberFromColor({"Black", "Orange"});
+    assert(pairNumber == 12);
+
+    pairNumber = GetPairNumberFromColor({"Yellow", "Slate"});
+    assert(pairNumber == 20);
+
+    try {
+        GetPairNumberFromColor({"Pink", "Blue"});
+        assert(false);  // Should not reach here
+    } catch (const std::invalid_argument&) {
+        // Expected
+    }
+}
+
+void testGetReferenceManual() {
+    std::string manual = GetReferenceManual();
+    // Check header presence
+    assert(manual.find("Pair Number") != std::string::npos);
+    assert(manual.find("White") != std::string::npos);
+    assert(manual.find("Violet") != std::string::npos);
 }
 
 int main() {
-    testNumberToPair(4, WHITE, BROWN);
-    testNumberToPair(5, WHITE, SLATE);
-    testPairToNumber(BLACK, ORANGE, 12);
-    testPairToNumber(VIOLET, SLATE, 25);
-    printf("All tests passed.\n");
+    testGetColorFromPairNumber();
+    testGetPairNumberFromColor();
+    testGetReferenceManual();
+
+    std::cout << "All tests passed!\n";
+
+    // Optionally print the manual
+    std::cout << "\nColor Code Reference Manual:\n";
+    std::cout << GetReferenceManual();
+
     return 0;
 }
