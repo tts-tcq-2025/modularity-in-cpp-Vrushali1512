@@ -1,24 +1,24 @@
 #ifndef COLOR_CODE_H
 #define COLOR_CODE_H
 
-typedef enum {
-    WHITE, RED, BLACK, YELLOW, VIOLET, NUMBER_OF_MAJOR_COLORS
-} MajorColor;
+#include <string>
+#include <vector>
 
-typedef enum {
-    BLUE, ORANGE, GREEN, BROWN, SLATE, NUMBER_OF_MINOR_COLORS
-} MinorColor;
+namespace ColorCode {
 
-typedef struct {
-    MajorColor major;
-    MinorColor minor;
-} ColorPair;
+struct ColorPair {
+    std::string majorColor;
+    std::string minorColor;
+};
 
-const char* MajorColorNames[NUMBER_OF_MAJOR_COLORS];
-const char* MinorColorNames[NUMBER_OF_MINOR_COLORS];
+const int numberOfMajorColors = 5;
+const int numberOfMinorColors = 5;
+const int numberOfColorPairs = numberOfMajorColors * numberOfMinorColors;
 
 ColorPair GetColorFromPairNumber(int pairNumber);
-int GetPairNumberFromColor(MajorColor major, MinorColor minor);
-void ToString(ColorPair colorPair, char* buffer, int bufferLen);
+int GetPairNumberFromColor(const ColorPair& colorPair);
+std::string GetReferenceManual();
 
-#endif // COLOR_CODE_H
+}  // namespace ColorCode
+
+#endif  // COLOR_CODE_H
